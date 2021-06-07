@@ -1,50 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './App.css';
 import List from './components/List';
 import Selector from './components/Selector';
 
-class App extends React.Component {
+export default function App() {
+  const [url, setUrl] = useState('https://www.reddit.com/r/reactjs.json');
+  const [list, setlist] = useState([]);
 
-  constructor(){
-    super();
-    this.state = 
-    {
-      url: 'https://www.reddit.com/r/reactjs.json',
-      posts:[],
-    };
-  }
+  useEffect( ()=>{
+    haddleResponse();
+    console.log('hola');
+  },
+  [url]
+  );
 
-  handleOnChange = (e) => {
-    const val = e.target.value;
-    this.setState({
-      url: val,
-    }, ()=>{
-      this.gettingResponse();
-    });
-  }
-
-  async gettingResponse(){
-    const response = await axios.get(this.state.url);
+  const haddleResponse = async () => {
+    const response = await axios.get(url);
     const reponsePosts = response.data.data.children.map((obj)=>{ return obj.data });
-    console.log(reponsePosts);
-    this.setState({
-      posts:reponsePosts,
-    });
+    setlist(reponsePosts);
   }
 
-  componentDidMount(){
-    this.gettingResponse();
+  const handleOnChange = (e) => {
+    const val = e.target.value;
+    setUrl(val);
   }
 
-  render(){
-    return (
-      <div className="App">
-        <Selector propsChanging={this.handleOnChange} />
-        <List propPosts={this.state.posts} />
-      </div>
-    );
-  }
+  console.log(url);
+
+  return (
+    <div className="App">
+        <Selector propsChanging={handleOnChange} />
+        <List propPosts={list} />
+    </div>
+  )
 }
-
-export default App;

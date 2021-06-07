@@ -1,17 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react'
 import "./list.css"
-import Item from './Item';
-export default class List extends Component {
 
-    constructor(props){
-        super(props);
-    }
-
-    render() {
-        return (
-            <ul>
+export default function List({ propPosts }) {
+    return (
+        <ul style={{border: '1px solid blue', width:'100%', minHeight:'300px'}}>
                 {
-                    this.props.propPosts.map((post) => { 
+                    propPosts.map((post) => { 
                         return (
                         <li>
                             <span style={{color: 'red'}}>{post.author} </span>
@@ -20,6 +14,6 @@ export default class List extends Component {
                     })
                 }
             </ul>
-        )
-    }
+    )
 }
+

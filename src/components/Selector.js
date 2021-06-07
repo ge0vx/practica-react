@@ -9,8 +9,8 @@ export default class Selector extends Component {
     render() {
         return (
             <select onChange={this.props.propsChanging}>
-                <option value="https://www.reddit.com/r/reactjs.json">lista 1</option>
-                <option value="https://www.reddit.com/r/angular.json">lista 2</option>
+                <option value="https://www.reddit.com/r/reactjs.json">temas react</option>
+                <option value="https://www.reddit.com/r/angular.json">temas angular</option>
             </select>
         )
     }
