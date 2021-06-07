@@ -1,47 +1,58 @@
 import React from 'react';
-import axios from 'axios';
+import axios from 'axios'
 import './App.css';
-import List from './components/List';
-import Selector from './components/Selector';
+import List from './components/List'
+import Selector from './components/Selector'
+import Row from './components/Row'
 
 class App extends React.Component {
-
-  constructor(){
+  
+  constructor() {
     super();
-    this.state = 
-    {
+    this.state = {
       url: 'https://www.reddit.com/r/reactjs.json',
-      posts:[],
+      posts: []
     };
   }
 
   handleOnChange = (e) => {
     const val = e.target.value;
     this.setState({
-      url: val,
-    }, ()=>{
-      this.gettingResponse();
+      url: val
+    }, () => {
+      this.gettingReponse();
     });
   }
 
-  async gettingResponse(){
+  async gettingReponse() {
     const response = await axios.get(this.state.url);
-    const reponsePosts = response.data.data.children.map((obj)=>{ return obj.data });
-    console.log(reponsePosts);
+    const responsePosts = response.data.data.children.map(obj => {return obj.data});
+    console.log(responsePosts);
     this.setState({
-      posts:reponsePosts,
+      posts: responsePosts
     });
   }
 
-  componentDidMount(){
-    this.gettingResponse();
+  componentDidMount() {
+    this.gettingReponse();
   }
 
-  render(){
+  render() {
     return (
       <div className="App">
-        <Selector propsChanging={this.handleOnChange} />
-        <List propPosts={this.state.posts} />
+        <Selector propsChanging = {this.handleOnChange} />
+        <table>
+          <thead>
+            <tr>
+              <th>Author</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <Row propBooks={this.state.posts}></Row>
+          </tbody>
+        </table>
+        <List propPosts={this.state.posts}/>
       </div>
     );
   }

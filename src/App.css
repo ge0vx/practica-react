@@ -1,3 +1,7 @@
-.App{
-    margin: 10px 20px;
+.App {
+    width: 70%;
+    margin: 50px auto;
+}
+table {
+    border: 1px black solid;
 }

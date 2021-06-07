@@ -1,10 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import "./item.css"
 
-export default class Item extends Component {
-    render() {
-        return (
-            <li className="item">Item 0</li>
-        )
-    }
-}
+const Item = (props) => props.propItem.map(post => <li className='Item'>{post.author}</li>);
+export default Item;
